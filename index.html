@@ -12,24 +12,85 @@
     }
 
     body {
-      background: linear-gradient(145deg, #2d2a3e 0%, #1e1b2c 100%);
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+      background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: 'Georgia', 'Times New Roman', serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
       margin: 0;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Su damlası efekti - arka plan */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.04) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(180,210,255,0.05) 0%, transparent 60%);
+      animation: waterFlow 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes waterFlow {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(15px, -10px) rotate(1deg); }
+      66% { transform: translate(-10px, 10px) rotate(-1deg); }
     }
 
     .card {
-      max-width: 500px;
+      max-width: 650px;
       width: 100%;
-      background: #fef9f3;
-      border-radius: 40px;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
       overflow: hidden;
-      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Su kenarı efekti - üst çizgi */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(100, 180, 220, 0.6) 20%, 
+        rgba(140, 200, 235, 0.8) 50%, 
+        rgba(100, 180, 220, 0.6) 80%, 
+        transparent 100%);
+      z-index: 2;
+    }
+
+    /* Su yansıması alt kenar */
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(100, 160, 200, 0.4), 
+        transparent);
+      z-index: 2;
     }
 
     .hidden-section {
@@ -40,195 +101,346 @@
       display: block;
     }
 
+    /* GİRİŞ EKRANI */
     .login-screen {
-      padding: 40px 30px;
+      padding: 50px 35px;
       text-align: center;
+      position: relative;
     }
 
     .lock-icon {
-      font-size: 64px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 8px 10px rgba(0,0,0,0.2));
+      font-size: 48px;
+      margin-bottom: 25px;
+      opacity: 0.9;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      letter-spacing: 2px;
     }
 
-    h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #4a3b4f;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
+    .brand-name {
+      font-size: 32px;
+      font-weight: 400;
+      color: #2c3e50;
+      margin-bottom: 6px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Georgia', serif;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #8bb8d0, #5a9ab5, #8bb8d0);
+      margin: 15px auto 20px;
+      border-radius: 1px;
     }
 
     .subtitle {
-      color: #7b6e82;
-      font-size: 16px;
-      margin-bottom: 30px;
+      color: #7a8b99;
+      font-size: 15px;
+      margin-bottom: 35px;
       font-style: italic;
+      letter-spacing: 1px;
     }
 
     .input-group {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 18px;
       align-items: center;
     }
 
     input {
       width: 100%;
-      max-width: 260px;
-      padding: 15px 20px;
-      border: 2px solid #e7d9d0;
+      max-width: 280px;
+      padding: 16px 22px;
+      border: 1px solid #cddbe6;
       border-radius: 50px;
-      font-size: 18px;
+      font-size: 17px;
       text-align: center;
-      letter-spacing: 4px;
-      background: white;
+      letter-spacing: 5px;
+      background: #f8fafc;
       outline: none;
-      transition: 0.2s;
-      font-weight: 500;
-      color: #3a2e3f;
+      transition: all 0.3s;
+      font-weight: 400;
+      color: #2c3e50;
+      font-family: 'Georgia', serif;
     }
 
     input:focus {
-      border-color: #c7aeb5;
-      box-shadow: 0 0 0 4px rgba(199, 174, 181, 0.3);
+      border-color: #7aafc9;
+      box-shadow: 0 0 0 4px rgba(122, 175, 201, 0.12);
+      background: #fff;
     }
 
     button {
-      background: linear-gradient(135deg, #b1857a, #9b6e63);
+      background: linear-gradient(135deg, #5a8fa8, #3d6d85);
       border: none;
       color: white;
-      font-weight: bold;
-      font-size: 18px;
-      padding: 14px 38px;
-      border-radius: 40px;
+      font-weight: 400;
+      font-size: 16px;
+      padding: 15px 45px;
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 10px 18px rgba(155, 110, 99, 0.4);
-      transition: all 0.25s;
-      letter-spacing: 1px;
-      margin-top: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(61, 109, 133, 0.35);
+      transition: all 0.3s;
+      letter-spacing: 2px;
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
     }
 
     button:hover {
-      background: linear-gradient(135deg, #c49b8c, #aa7b6e);
-      box-shadow: 0 14px 22px rgba(155, 110, 99, 0.55);
+      background: linear-gradient(135deg, #6da3bc, #4a7d96);
+      box-shadow: 0 12px 28px rgba(61, 109, 133, 0.5);
       transform: translateY(-2px);
     }
 
     .error-message {
-      color: #c2544b;
-      font-size: 15px;
-      margin-top: 18px;
-      font-weight: 500;
-      min-height: 24px;
+      color: #b85450;
+      font-size: 14px;
+      margin-top: 20px;
+      font-weight: 400;
+      min-height: 22px;
+      letter-spacing: 0.5px;
     }
 
+    .footer-note {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #a8bbc8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ALBÜM EKRANI */
     .album-screen {
-      padding: 20px 25px 35px;
+      padding: 30px 30px 35px;
     }
 
     .album-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 8px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e8eef3;
     }
 
     .album-title {
-      font-size: 24px;
-      font-weight: 680;
-      color: #4e3948;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 22px;
+      font-weight: 400;
+      color: #2c3e50;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Georgia', serif;
     }
 
     .logout-btn {
-      background: rgba(225, 210, 200, 0.5);
-      border: none;
-      font-size: 16px;
-      color: #7f6b78;
+      background: none;
+      border: 1px solid #cfdde6;
+      font-size: 13px;
+      color: #7a8b99;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 8px 12px;
+      padding: 8px 18px;
       border-radius: 30px;
-      transition: 0.2s;
-      font-weight: 500;
+      transition: all 0.3s;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     .logout-btn:hover {
-      background: rgba(200, 170, 160, 0.7);
-      color: #3f2e38;
+      background: #f0f4f7;
+      color: #3d6d85;
+      border-color: #9bbdce;
     }
 
+    /* FOTOĞRAF GRID - YATAY DÜZEN */
     .photo-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin: 20px 0 25px;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin: 25px 0;
     }
 
-    .photo-card {
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(145deg, #f3e2d4, #ddcdbe);
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
-      transition: transform 0.25s ease, box-shadow 0.3s;
+    /* Her fotoğraf kartı */
+    .photo-item {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 20px;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(0, 0, 0, 0.03);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .photo-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 18px 28px rgba(0, 0, 0, 0.3);
+    /* Su yansıması efekti */
+    .photo-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(180, 210, 235, 0.06) 0%, 
+        transparent 40%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .placeholder-img {
-      font-size: 55px;
-      opacity: 0.8;
-      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.2));
+    .photo-item:hover {
+      box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(100, 160, 200, 0.2);
+      transform: translateY(-2px);
+      background: #fff;
     }
 
-    .message-box {
-      background: #f7efe7;
-      border-radius: 32px;
-      padding: 18px 20px;
-      margin-top: 10px;
-      color: #4d3b44;
-      font-size: 16px;
-      text-align: center;
-      border: 1px solid #e6d2c4;
+    /* Fotoğraf çerçevesi */
+    .photo-frame {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      position: relative;
+      z-index: 1;
+      background: #e8eef3;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .photo-item:hover .photo-frame img {
+      transform: scale(1.05);
+    }
+
+    /* Su damlası köşe efekti */
+    .photo-frame::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(100, 160, 200, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-item:hover .photo-frame::after {
+      opacity: 1;
+    }
+
+    /* Fotoğraf yanındaki yazı alanı */
+    .photo-caption {
+      flex: 1;
+      z-index: 1;
+    }
+
+    .photo-caption h3 {
+      font-size: 17px;
+      font-weight: 400;
+      color: #2c3e50;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+      font-family: 'Georgia', serif;
+    }
+
+    .photo-caption p {
+      font-size: 13px;
+      color: #7a8b99;
+      line-height: 1.6;
       font-style: italic;
-      line-height: 1.5;
+      letter-spacing: 0.5px;
+    }
+
+    /* Tarih çizgisi */
+    .photo-date {
+      display: inline-block;
+      font-size: 11px;
+      color: #a8bbc8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Mesaj kutusu */
+    .message-box {
+      background: linear-gradient(135deg, #f0f4f7, #e8eef3);
+      border-radius: 16px;
+      padding: 22px 25px;
+      margin-top: 10px;
+      color: #3d5568;
+      font-size: 15px;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.7;
+      letter-spacing: 0.8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Su yansıması çizgisi */
+    .message-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20%;
+      right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(100, 160, 200, 0.5), transparent);
     }
 
     .signature {
-      margin-top: 16px;
-      font-weight: 600;
-      color: #8b6f73;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      margin-top: 20px;
+      font-weight: 400;
+      color: #5a8fa8;
+      text-align: center;
       font-size: 18px;
+      letter-spacing: 3px;
+      font-family: 'Georgia', serif;
     }
 
     hr {
-      border: 0.5px solid #e2cfc0;
-      margin: 18px 0 10px;
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d0dce4, transparent);
+      margin: 20px 0 15px;
     }
 
-    @media (max-width: 400px) {
-      .photo-grid {
-        gap: 10px;
+    @media (max-width: 500px) {
+      .photo-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
       }
+      
+      .photo-frame {
+        width: 100%;
+        height: 200px;
+      }
+
       .album-title {
-        font-size: 20px;
+        font-size: 18px;
+        letter-spacing: 2px;
+      }
+
+      .card {
+        border-radius: 18px;
       }
     }
   </style>
@@ -238,42 +450,86 @@
     
     <!-- GİRİŞ EKRANI -->
     <div id="loginSection" class="login-screen visible-section">
-      <div class="lock-icon">🔐</div>
-      <h1>Murat & Nazlı</h1>
-      <p class="subtitle">Bu albüm sadece size özel</p>
+      <div class="lock-icon">◈</div>
+      <div class="brand-name">Murat & Nazlı</div>
+      <div class="divider"></div>
+      <p class="subtitle">Özel Koleksiyon</p>
       <div class="input-group">
-        <input type="password" id="passwordInput" placeholder="Şifreyi girin" maxlength="30" autocomplete="off">
-        <button id="enterButton">📷 Albüme Gir</button>
+        <input type="password" id="passwordInput" placeholder="••••••" maxlength="30" autocomplete="off">
+        <button id="enterButton">Albüme Gir</button>
       </div>
       <div id="errorMessage" class="error-message"></div>
-      <div style="margin-top: 25px; font-size: 13px; color: #b8a59b;">🔒 özel şifre korumalı</div>
+      <div class="footer-note">— private —</div>
     </div>
 
     <!-- ALBÜM EKRANI -->
     <div id="albumSection" class="album-screen hidden-section">
       <div class="album-header">
-        <div class="album-title">
-          <span>✨ Murat & Nazlı</span>
+        <div class="album-title">Murat & Nazlı</div>
+        <button class="logout-btn" id="logoutButton">Çıkış</button>
+      </div>
+
+      <!-- FOTOĞRAFLAR VE YANINDA YAZILAR -->
+      <div class="photo-grid">
+        
+        <div class="photo-item">
+          <div class="photo-frame">
+            <img src="fotograf1.jpg" alt="Murat ve Nazlı">
+          </div>
+          <div class="photo-caption">
+            <h3>İlk Bakış</h3>
+            <p>Gözlerinin derinliğinde kaybolduğum o an...</p>
+            <span class="photo-date">· 2023 ·</span>
+          </div>
         </div>
-        <button class="logout-btn" id="logoutButton">
-          <span>🚪</span> Çıkış
-        </button>
+
+        <div class="photo-item">
+          <div class="photo-frame">
+            <img src="fotograf2.jpg" alt="Murat ve Nazlı">
+          </div>
+          <div class="photo-caption">
+            <h3>Birlikte Zaman</h3>
+            <p>Her saniyesi ömre bedel, seninle geçen her gün.</p>
+            <span class="photo-date">· 2024 ·</span>
+          </div>
+        </div>
+
+        <div class="photo-item">
+          <div class="photo-frame">
+            <img src="fotograf3.jpg" alt="Murat ve Nazlı">
+          </div>
+          <div class="photo-caption">
+            <h3>Sonsuz Yol</h3>
+            <p>Bu yolun sonu yok, çünkü biz birlikte yürüyoruz.</p>
+            <span class="photo-date">· 2024 ·</span>
+          </div>
+        </div>
+
+        <div class="photo-item">
+          <div class="photo-frame">
+            <img src="fotograf4.jpg" alt="Murat ve Nazlı">
+          </div>
+          <div class="photo-caption">
+            <h3>Bir Ömür</h3>
+            <p>Ve işte buradasın; hayatımın en güzel parçası.</p>
+            <span class="photo-date">· 2025 ·</span>
+          </div>
+        </div>
+
       </div>
-<div class="photo-grid">
-  <div class="photo-card"><img src="fotograf1.jpg" style="width:100%; height:100%; object-fit: cover;" alt="Murat ve Nazlı"></div>
-  <div class="photo-card"><img src="fotograf2.jpg" style="width:100%; height:100%; object-fit: cover;" alt="Murat ve Nazlı"></div>
-  <div class="photo-card"><img src="fotograf3.jpg" style="width:100%; height:100%; object-fit: cover;" alt="Murat ve Nazlı"></div>
-  <div class="photo-card"><img src="fotograf4.jpg" style="width:100%; height:100%; object-fit: cover;" alt="Murat ve Nazlı"></div>
-</div>
+
       <div class="message-box">
-        “Birlikte geçen her an bir yıldız gibi… Bu albüm sadece ikinize ait.”
+        "Su gibi berrak, derin ve sonsuz bir sevdayla..."
       </div>
+      
       <hr>
+      
       <div class="signature">
-        <span>💛 Murat</span> <span style="margin:0 6px;">&</span> <span>Nazlı 💛</span>
+        Murat &nbsp;✦&nbsp; Nazlı
       </div>
-      <div style="text-align: center; font-size: 13px; margin-top: 14px; color: #ab8f87;">
-        özel koleksiyon • izinsiz erişilemez
+      
+      <div style="text-align: center; font-size: 11px; margin-top: 16px; color: #a8bbc8; letter-spacing: 2px; text-transform: uppercase;">
+        özel koleksiyon
       </div>
     </div>
   </div>
@@ -282,36 +538,11 @@
     (function() {
       // ==========================================
       // GÜVENLİ ŞİFRE SİSTEMİ
-      // Aşağıda şifrenizin SHA-256 hash'i var.
-      // Kaynak kodda gerçek şifre YOK.
       // ==========================================
       
-      // Bu hash'i oluşturmak için kullanılan formül:
-      // SHA256( "özel-tuz-değeri:" + GERÇEK-ŞİFRENİZ )
-      // 
-      // ÖRNEK: Eğer şifreniz "MuratNazli2025" ise hash şöyle oluştu:
-      // SHA256("albüm-tuzu-2025:MuratNazli2025")
-      // 
-      // SİZ KENDİ ŞİFRENİZİ BELİRLEYİP YENİ HASH OLUŞTURMALISINIZ.
-      // Aşağıdaki satırı kendi hash'inizle değiştirin.
+      const SAKLANAN_HASH = "ea03769660bb11f74bd89ea6bfc8150784aec7439a1a53ec273109e7c77fd3de";
+      const TUZ = "su-damlasi-2025:";
       
-      const SAKLANAN_HASH = "ea03769660bb11f74bd89ea6bfc8150784aec7439a1a53ec273109e7c77fd3de"; 
-      // Bu örnek bir hash. GERÇEK hash'inizi koymalısınız!
-      
-      const TUZ = "albüm-tuzu-2025:";
-      // Tuz değeri, aynı şifrenin farklı hash üretmesini sağlar.
-      // İsterseniz tuz'u da değiştirebilirsiniz, ama hash ile uyumlu olmalı.
-      
-      // ==========================================
-      // YENİ ŞİFRE VE HASH OLUŞTURMA TALİMATI:
-      // ==========================================
-      // 1. Şifrenizi belirleyin (örn: "BizimSifremiz2025")
-      // 2. Aşağıdaki satırı konsolda çalıştırın (F12 > Console):
-      //    async function hashOlustur() { const msg = new TextEncoder().encode("albüm-tuzu-2025:ŞİFRENİZ"); const hashBuffer = await crypto.subtle.digest("SHA-256", msg); const hashArray = Array.from(new Uint8Array(hashBuffer)); const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join(""); console.log("YENİ HASH:", hashHex); } hashOlustur();
-      // 3. Çıkan hash'i yukarıdaki SAKLANAN_HASH değişkenine yapıştırın.
-      // 4. "ŞİFRENİZ" yazan yere kendi şifrenizi yazın.
-      
-      // HTML elementleri
       const loginSection = document.getElementById('loginSection');
       const albumSection = document.getElementById('albumSection');
       const passwordInput = document.getElementById('passwordInput');
@@ -319,58 +550,45 @@
       const errorMessage = document.getElementById('errorMessage');
       const logoutButton = document.getElementById('logoutButton');
 
-      // SHA-256 hash fonksiyonu (tarayıcıda çalışır)
       async function sha256(message) {
         const msgBuffer = new TextEncoder().encode(message);
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        return hashHex;
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       }
 
-      // Session kontrolü
-      const albumAccess = sessionStorage.getItem('muratNazliAlbumGuvenli');
+      const albumAccess = sessionStorage.getItem('muratNazliSu');
       if (albumAccess === 'granted') {
         showAlbum();
       } else {
         showLogin();
       }
 
-      // Giriş butonu
       enterButton.addEventListener('click', async function() {
         const girilenSifre = passwordInput.value;
-        
         if (!girilenSifre) {
-          errorMessage.textContent = '⚠️ Lütfen şifre girin.';
+          errorMessage.textContent = 'Lütfen şifre girin.';
           return;
         }
-
-        // Tuzlu şifreyi hashle
-        const tuzluSifre = TUZ + girilenSifre;
-        const girisHash = await sha256(tuzluSifre);
-        
+        const girisHash = await sha256(TUZ + girilenSifre);
         if (girisHash === SAKLANAN_HASH) {
-          sessionStorage.setItem('muratNazliAlbumGuvenli', 'granted');
+          sessionStorage.setItem('muratNazliSu', 'granted');
           errorMessage.textContent = '';
           passwordInput.value = '';
           showAlbum();
         } else {
-          errorMessage.textContent = '❌ Şifre yanlış. Lütfen tekrar deneyin.';
+          errorMessage.textContent = 'Şifre yanlış.';
           passwordInput.value = '';
           passwordInput.focus();
         }
       });
 
-      // Enter tuşu
       passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          enterButton.click();
-        }
+        if (e.key === 'Enter') enterButton.click();
       });
 
-      // Çıkış
       logoutButton.addEventListener('click', function() {
-        sessionStorage.removeItem('muratNazliAlbumGuvenli');
+        sessionStorage.removeItem('muratNazliSu');
         passwordInput.value = '';
         errorMessage.textContent = '';
         showLogin();
@@ -390,10 +608,7 @@
         loginSection.classList.remove('hidden-section');
         passwordInput.focus();
       }
-
-      // Güvenlik: console'da hash görüntülenmesin diye ekstra bir şey yok,
-      // ama istenirse SAKLANAN_HASH değişkeni biraz daha gizlenebilir.
     })();
   </script>
 </body>
-</html>3 Perching of water Serious
+</html>
